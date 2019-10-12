@@ -1,4 +1,5 @@
 # Data Structures 
+# small initial change
 
 Topics:
  * Queues
