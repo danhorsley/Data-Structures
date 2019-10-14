@@ -32,7 +32,7 @@ class BinarySearchTree:
     # Return True if the tree contains the value
     # False if it does not
     def contains(self, target):
-        print(self.value)
+        #print(self.value)
         if self.value == target:
           return True
         elif self.value > target:
@@ -57,7 +57,7 @@ class BinarySearchTree:
     # Call the function `cb` on the value of each node
     # You may use a recursive or iterative approach
     def for_each(self, cb):
-          print(self.value)
+          #print(self.value)
           #cb(self.value)
           if self.left is None:
             pass
@@ -77,7 +77,15 @@ class BinarySearchTree:
     # Print all the values in order from low to high
     # Hint:  Use a recursive, depth first traversal
     def in_order_print(self, node):
-        pass
+      if self.left is not None:
+        self.left.in_order_print(self)
+        print(self.value)
+        if self.right is not None:
+          self.right.in_order_print(self.right)
+      elif self.left is None:
+        print(self.value)
+        if self.right is not None:
+          self.in_order_print(self)
 
     # Print the value of every node, starting with the given node,
     # in an iterative breadth first traversal
