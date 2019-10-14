@@ -17,47 +17,35 @@ class BinarySearchTree:
         if value >= self.value:
           if self.right is None:
             new_node = BinarySearchTree(value)
-            new_node.left = self
-            self.right = new_node
-          elif value <= self.right.value:
-            new_node = BinarySearchTree(value)
-            new_node.left = self
-            new_node.right = self.right
-            self.right.left = new_node
             self.right = new_node
           else:
             self.right.insert(value)
         elif value < self.value:
           if self.left is None:
             new_node = BinarySearchTree(value)
-            new_node.right = self
-            self.left = new_node
-          elif value >= self.left.value:
-            new_node = BinarySearchTree(value)
-            new_node.left = self.left
-            new_node.right = self
-            self.left.right = new_node
             self.left = new_node
           else:
             self.left.insert(value)
+ 
 
 
     # Return True if the tree contains the value
     # False if it does not
     def contains(self, target):
-        #print(self.value)
+        print(self.value)
         if self.value == target:
           return True
-        elif self.value < target:
-          if self.right is None or self.right.value>target:
-            return False
-          else:
-            return self.right.contains(target)
-        elif self.value > target or self.left.value<target:
+        elif self.value > target:
           if self.left is None:
             return False
           else:
             return self.left.contains(target)
+        elif self.value < target:
+          if self.right is None:
+            return False
+          else:
+            return self.right.contains(target)
+
 
     # Return the maximum value found in the tree
     def get_max(self):
@@ -68,22 +56,21 @@ class BinarySearchTree:
 
     # Call the function `cb` on the value of each node
     # You may use a recursive or iterative approach
-    def for_each(self, cb, direction='r'):
-          #print(self.value)
-
-          if direction =='r':
-            if self.right is None:
-
-              self.left.for_each(cb,direction = 'l')
-              return cb(self.value)
-            else:
-              self.right.for_each(cb)
-          elif direction =='l':
-            if self.left is None:
-              return cb(self.value)
-            else:
-              self.left.for_each(cb, direction ='l')
-              return cb(self.value)
+    def for_each(self, cb):
+          print(self.value)
+          #cb(self.value)
+          if self.left is None:
+            pass
+          else:
+            self.left.for_each(cb)
+          
+          if self.right is None:
+            pass
+          else:
+            self.right.for_each(cb)
+            
+          cb(self.value)
+        
 
     # DAY 2 Project -----------------------
 
