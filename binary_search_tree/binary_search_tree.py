@@ -85,7 +85,7 @@ class BinarySearchTree:
       elif self.left is None:
         print(self.value)
         if self.right is not None:
-          self.in_order_print(self)
+          self.right.in_order_print(self)
 
     # Print the value of every node, starting with the given node,
     # in an iterative breadth first traversal
@@ -97,8 +97,10 @@ class BinarySearchTree:
           my_Q.enqueue(my_Q.storage.head.value.left)
         if my_Q.storage.head.value.right is not None:
           my_Q.enqueue(my_Q.storage.head.value.right)
-        print(my_Q.storage.head.value.value)
-        my_Q.dequeue()
+        #print(my_Q.storage.head.value.value)
+        p = my_Q.dequeue().value
+        if p is not None:
+            print(p)
 
     # Print the value of every node, starting with the given node,
     # in an iterative depth first traversal
