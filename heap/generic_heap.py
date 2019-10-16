@@ -5,8 +5,11 @@ class Heap:
 
     def insert(self, value):
         self.storage.append(value)
-        for i in range(len(self.storage)):
-          self._bubble_up(i)
+        #for i in range(len(self.storage)):
+        for i in range(1,len(self.storage)):
+          #self._bubble_up(i)
+          self._sift_down(i)
+          self._bubble_up(len(self.storage)-i)
 
 
     def delete(self):
