@@ -5,11 +5,10 @@ class Heap:
 
     def insert(self, value):
         self.storage.append(value)
-        #for i in range(len(self.storage)):
-        for i in range(1,len(self.storage)):
-          #self._bubble_up(i)
-          self._sift_down(i)
-          self._bubble_up(len(self.storage)-i)
+        my_index = len(self.storage)-1
+        self._bubble_up(my_index)
+  
+        
 
 
     def delete(self):
@@ -17,6 +16,7 @@ class Heap:
           return None
         ret = self.storage[0]
         self.storage = self.storage[1:]
+        self._sift_down(0)
         return ret
 
     def get_priority(self):
@@ -29,17 +29,20 @@ class Heap:
         if index == 0:
           pass
         else:
-          parent_number = (index-1)//2
-          if self.comparator(self.storage[index],self.storage[parent_number]):
-            a = self.storage[index]
-            b = self.storage[parent_number]
-            self.storage[index] = b
-            self.storage[parent_number] = a
-          else:
-            pass
+          while index >0:
+            parent_number = (index-1)//2
+            if self.comparator(self.storage[index],self.storage[parent_number]):
+              a = self.storage[index]
+              b = self.storage[parent_number]
+              self.storage[index] = b
+              self.storage[parent_number] = a
+              index = parent_number
+            else:
+              index = -1
+              pass
 
     def _sift_down(self, index):
-        if len(self.storage)>index*2 + 1:
+        while len(self.storage)>index*2 + 1 and len(self.storage)>1:
           child_number_one = index*2 + 1
 
           if len(self.storage)>index*2 + 2:
@@ -50,10 +53,12 @@ class Heap:
               greater_child = child_number_two
           else:
             greater_child = child_number_one
+          #print('i',index, 'g',greater_child)
           if self.comparator(self.storage[greater_child],self.storage[index]):
             a = self.storage[greater_child]
             b = self.storage[index]
             self.storage[index] = a
             self.storage[greater_child] = b
-        else:
-          pass
+          else:
+            index = len(self.storage)
+          index = greater_child  
