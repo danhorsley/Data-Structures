@@ -40,7 +40,15 @@ class AVLTree:
     in the tree
     """
     def update_height(self):
-        pass
+      depth_l = depth_r = 0
+      if self.node.left is not None:
+        #print('node type',type(self.node.left))
+        depth_l = 1 + self.node.left.update_height()
+      if self.node.right is not None:
+        depth_r = 1 + self.node.right.update_height()
+      
+      self.height = max(depth_l,depth_r)
+      return self.height
 
     """
     Updates the balance factor on the AVLTree class
