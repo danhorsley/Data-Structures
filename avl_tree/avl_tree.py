@@ -75,6 +75,8 @@ class AVLTree:
           self.node.right = None
           old_parent = self.node
           self.node = right_child
+          left_save = self.node.left  #added line
+          old_parent.right = left_save  #added line to preserve lost data in rotation
           self.node.left = AVLTree(old_parent)
 
     """
@@ -90,6 +92,8 @@ class AVLTree:
           self.node.left = None
           old_parent = self.node
           self.node = left_child
+          right_save = self.node.right
+          old_parent.left = right_save
           self.node.right = AVLTree(old_parent)
 
     """
