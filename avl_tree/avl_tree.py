@@ -56,9 +56,9 @@ class AVLTree:
     def update_balance(self):
       height_r = height_l = 0
       if self.node.left is not None:
-        height_l = self.node.left.update_height()
+        height_l = 1 + self.node.left.update_height()
       if self.node.right is not None:
-        height_r = self.node.right.update_height()
+        height_r = 1 + self.node.right.update_height()
       self.balance = (height_r - height_l)
       return self.balance
 
@@ -102,7 +102,26 @@ class AVLTree:
     1 or -1
     """
     def rebalance(self):
-        pass
+      new_balance = self.update_balance()
+      #print(new_balance)
+      while new_balance not in [-1,0,1]:
+        if new_balance > 1:
+          if self.node.right.update_balance()>=0:
+            self.left_rotate()
+            new_balance = self.update_balance()
+          else:
+            self.node.right.right_rotate()
+            self.left_rotate()
+            new_balance = self.update_balance()
+          
+        if new_balance < -1:
+          if self.node.left.update_balance()<=0:
+            self.right_rotate()
+            new_balance = self.update_balance()
+          else:
+            self.node.left.left_rotate()
+            self.right_rotate()
+            new_balance = self.update_balance()
         
     """
     Uses the same insertion logic as a binary search tree
@@ -110,4 +129,19 @@ class AVLTree:
     if we need to rebalance
     """
     def insert(self, key):
-        pass
+      if self.node is None:
+        self.node = Node(key)
+      elif key >= self.node.key:
+        if self.node.right is None:
+          new_tree = AVLTree(Node(key))
+          self.node.right = new_tree
+        else:
+          self.node.right.insert(key)
+      elif key < self.node.key:
+        if self.node.left is None:
+          new_tree = AVLTree(Node(key))
+          self.node.left = new_tree
+        else:
+          self.node.left.insert(key)
+      self.rebalance()
+
